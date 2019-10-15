@@ -1,1 +1,14 @@
-<h1>Rendered file</h1>
+<h1>HBS Rendered file</h1>
+
+Your message is: {{msg}} !!!
+<br>
+{{{html}}}
+<br>
+
+{{!-- each, if, unless --}}
+
+{{#each countries}}
+{{#if this.western}}
+<li>{{this.name}} -- {{this.capital}}</li>
+{{/if}}
+{{/each}}
