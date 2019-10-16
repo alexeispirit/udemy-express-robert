@@ -7,7 +7,7 @@ var router = express.Router();
 const apiKey = "123456789";
 // const apiBaseUrl = "http://api.themoviedb.org/3";
 const apiBaseUrl = "http://localhost:3030";
-const nowPlayingUrl = `${apiBaseUrl}/movie/now_playing?api_key=${apiKey}`;
+const nowPlayingUrl = `${apiBaseUrl}/most_popular?api_key=${apiKey}`;
 const imageBaseUrl = "http://image.tmdb.org/t/p/w300";
 
 router.use((req, res, next) => {
@@ -17,6 +17,7 @@ router.use((req, res, next) => {
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
+  console.log(nowPlayingUrl);
   request.get(nowPlayingUrl, (err, response, movieData) => {
     if (err) console.log(err);
     const parsedData = JSON.parse(movieData);
