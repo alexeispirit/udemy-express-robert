@@ -8,14 +8,23 @@ const apiBaseUrl = "http://api.themoviedb.org/3";
 const nowPlayingUrl = `${apiBaseUrl}/movie/now_playing?api_key=${apiKey}`;
 const imageBaseUrl = "http://image.tmdb.org/t/p/w300";
 
+router.use((req, res, next) => {
+  res.locals.imageBaseUrl = imageBaseUrl;
+  next();
+});
+
 /* GET home page. */
 router.get("/", function(req, res, next) {
   request.get(nowPlayingUrl, (err, response, movieData) => {
     if (err) console.log(err);
     const parsedData = JSON.parse(movieData);
+    // res.json(parsedData);
+    res.render("index", {
+      parsedData: parsedData.results
+    });
   });
 
-  res.render("index", {});
+  // res.render("index", {});
 });
 
 module.exports = router;
