@@ -16,11 +16,23 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use((req, res, next) => {
+  if (req.query.msg === "fail") {
+    res.locals.msg = "Sorry. This username and password incorrect";
+  } else {
+    res.locals.msg = "";
+  }
+
+  next();
+});
+
 app.get("/", (req, res, next) => {
   res.send("check");
 });
 
 app.get("/login", (req, res, next) => {
+  // req.query - object with property for every key in the query string
+  console.log(req.query);
   res.render("login");
 });
 
