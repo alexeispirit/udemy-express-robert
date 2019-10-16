@@ -19,6 +19,15 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
 app.use(helmet());
+
+app.use((req, res, next) => {
+  if (req.query.api_key !== "123456789") {
+    res.status(401).json("Invalid API key");
+  } else {
+    next();
+  }
+});
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
