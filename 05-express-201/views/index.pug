@@ -1,1 +1,19 @@
-h1 Rendered file
+doctype html
+html
+  head
+    title Pug Template
+  body
+    h1 Rendering Pug Template
+    div
+      p a message
+      p another message
+    div.container
+      div.row
+        div.col-sm-3 #{msg}
+        div.col-sm-3 !{html}
+      div.row
+        ul.col-sm-12
+          each country in countries
+            li= country.name + ' -- ' + country.capital
+            if country.western
+              div.western This country is western
