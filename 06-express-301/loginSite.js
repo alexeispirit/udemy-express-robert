@@ -77,6 +77,29 @@ app.get("/story/:id", (req, res, next) => {
   res.send(`<h1>Story ${id}</h1>`);
 });
 
+app.get("/statement", (req, res, next) => {
+  // This will render the statement in the browser
+  // res.sendFile(path.join(__dirname, "userStatements/BankStatement.png"));
+
+  // app has download method with 2 args
+  // 1. filename
+  // 2. optionally name to download as
+  // 3. callback for error
+  // download is setting headers
+  // 1. content-dispositions to attachement with filename of the 2nd arg
+  res.download(
+    path.join(__dirname, "userStatements/BankStatement.png"),
+    "statement.png",
+    error => {
+      if (error) console.log(error);
+      // res.headersSent is a bool, true if headers are already sent
+      if (!res.headersSent) {
+        res.redirect("/download/error");
+      }
+    }
+  );
+});
+
 app.get("/logout", (req, res, next) => {
   // res.clearCookie takes 1 arg:
   // 1. cookie to clear (by name)
