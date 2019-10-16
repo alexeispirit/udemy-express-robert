@@ -61,6 +61,22 @@ app.get("/welcome", (req, res, next) => {
   res.render("welcome", { username: req.cookies.username });
 });
 
+// app.parans() - takes 2 args:
+// 1. param to look for in the route
+// 2. callback to run
+app.param("id", (req, res, next, value) => {
+  console.log(value);
+  next();
+});
+
+// : - wildcard
+app.get("/story/:id", (req, res, next) => {
+  // req.params always exists
+  // it will have a property for each wildcard in the route
+  const { id } = req.params;
+  res.send(`<h1>Story ${id}</h1>`);
+});
+
 app.get("/logout", (req, res, next) => {
   // res.clearCookie takes 1 arg:
   // 1. cookie to clear (by name)
